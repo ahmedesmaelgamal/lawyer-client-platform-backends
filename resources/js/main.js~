@@ -1,0 +1,66 @@
+// resources/js/main.js
+
+import { messaging, getToken, onMessage } from './firebase-config';
+
+// Request notification permission
+Notification.requestPermission().then((permission) => {
+    if (permission === 'granted') {
+        console.log('Notification permission granted.');
+
+        // Get the FCM token
+        getToken(messaging, { vapidKey: 'BNWB9m5nGYExTifqK4mCFcmIl9Z-QdxaUx-sHLf16zgCn14BjTPKEEPf5pJbWXcwLpMQHfowkr6ZNoZw2-1-Zu8' }).then((currentToken) => {
+            if (currentToken) {
+                console.log('Token obtained:', currentToken);
+                saveTokenToServer(currentToken);
+            } else {
+                console.log('No registration token available.');
+            }
+        }).catch((err) => {
+            console.log('Error retrieving token:', err);
+        });
+    } else {
+        console.log('Notification permission denied.');
+    }
+});
+
+// Listen for messages when the app is in the foreground
+onMessage(messaging, (payload) => {
+    console.log('Message received:', payload);
+    const notificationTitle = payload.notification.title;
+    const notificationOptions = {
+        body: payload.notification.body,
+        icon: '/firebase-logo.png'
+    };
+    new Notification(notificationTitle, notificationOptions);
+});
+
+// Save token to server (Laravel route)
+function saveTokenToServer(token) {
+    fetch('/save-token', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({ token: token })
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    }).then(data => {
+        console.log('Token saved:', data);
+    }).catch((error) => {
+        console.error('Error saving token:', error);
+    });
+}
+
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/firebase-messaging-sw.js')
+        .then((registration) => {
+            console.log('Service Worker registered with scope:', registration.scope);
+        }).catch((error) => {
+        console.log('Service Worker registration failed:', error);
+    });
+}

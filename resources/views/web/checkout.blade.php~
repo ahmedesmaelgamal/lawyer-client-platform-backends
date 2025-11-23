@@ -1,0 +1,395 @@
+@extends('web.layouts.master')
+@section('title')
+    {{ config()->get('app.name') }} | {{ trns('cart') }}
+@endsection
+
+@section('content')
+    <div class="mt-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <i class="fa-solid fa-cart-shopping fa-lg text-black"></i>
+                </div>
+                <div class="col-lg-8 col-12">
+                    <div class="progress-line">
+                        <div class="step">
+                            <p>معلومات التواصل</p>
+                            <div class="bullet">
+                                <span>1</span>
+                            </div>
+                            <div class="check"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                        <div class="step">
+                            <p>التوصيل</p>
+                            <div class="bullet">
+                                <span>2</span>
+                            </div>
+                            <div class="check"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                        <div class="step">
+                            <p>الدفع</p>
+                            <div class="bullet">
+                                <span>3</span>
+                            </div>
+                            <div class="check"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-outer">
+                                <form class="form" method="POST">
+                                    @csrf
+                                    <div class="page slidePage">
+                                        <div class="border p-4 mb-5" style="border-radius: 10px;">
+                                            <h5 class="fw-bold mb-4">معلومات التواصل</h5>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label for="validationDefault01" class="form-label">الاسم
+                                                        الأول</label>
+                                                    <input type="text" name="first_name" class="form-control"
+                                                           id="validationDefault01"
+                                                           required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="validationDefault02" class="form-label">الاسم
+                                                        الاخير</label>
+                                                    <input type="text" name="last_name" class="form-control"
+                                                           id="validationDefault02"
+                                                           required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="validationDefaultUsername" class="form-label">رقم
+                                                        الهاتف</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text"
+                                                              id="inputGroupPrepend2">+968</span>
+                                                        <input type="text" name="phone" class="form-control"
+                                                               id="validationDefaultUsername"
+                                                               aria-describedby="inputGroupPrepend2" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="validationDefault02" class="form-label">البريد
+                                                        الالكترونى</label>
+                                                    <input type="email" name="email" class="form-control"
+                                                           id="validationDefault02"
+                                                           required>
+                                                </div>
+                                                <div class="col-12 mt-4 mb-5">
+                                                    <button class="next-btn btn-main" style="width: 150px;"
+                                                            type="button">التالى
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="page">
+                                        <div class="border p-4 mb-5" style="border-radius: 10px;">
+                                            <h5 class="fw-bold mb-4"> التوصيل</h5>
+                                            <div class="row p-3">
+                                                <div class="col-lg-6 col-12 mb-3">
+                                                    <div>
+                                                        <input type="radio" class="custom-check1" name="shipping_type"
+                                                               id="x" value="0">
+                                                        <label for="x" class="box-size1">
+                                                            <h6>توصيل الى المنزل</h6>
+                                                            <p>{{ $setting->home_shipping_price }} ريال عماني</p>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-12 mb-3">
+                                                    <div>
+                                                        <input type="radio" value="1" class="custom-check1"
+                                                               name="shipping_type"
+                                                               id="s">
+                                                        <label for="s" class="box-size1">
+                                                            <h6>الإستلام من المتجر</h6>
+                                                            <p>المعبيلة - شارع النزهة</p>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h5 class="fw-bold mb-4"> العنوان</h5>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label for="validationDefault01" class="form-label">اسم
+                                                        العنوان</label>
+                                                    <input type="text" class="form-control" name="address_name"
+                                                           id="validationDefault01"
+                                                           required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="validationDefault02" class="form-label">
+                                                        المحافظة</label>
+                                                    <input type="text" class="form-control" name="address_state"
+                                                           id="validationDefault02"
+                                                           required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="validationDefault01" class="form-label"> الولاية</label>
+                                                    <input type="text" class="form-control" name="address_city"
+                                                           id="validationDefault01"
+                                                           required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="validationDefault02" class="form-label"> المنطقة</label>
+                                                    <input type="text" class="form-control" name="address_area"
+                                                           id="validationDefault02"
+                                                           required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="validationDefault01" class="form-label"> نوع البناية (
+                                                        منزل - شقة - مكتب)</label>
+                                                    <input type="text" class="form-control" name="address_type"
+                                                           id="validationDefault01"
+                                                           required>
+                                                </div>
+                                                <div class="col-12 mt-4 mb-5">
+                                                    <button class="prev-1 btn-main" style="width: 150px;" type="button">
+                                                        السابق
+                                                    </button>
+                                                    <button class="next-1 btn-main" style="width: 150px;" type="button">
+                                                        التالى
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="page">
+                                        <div class="border p-4 mb-5" style="border-radius: 10px;">
+                                            <div class="d-flex justify-content-center mt-4">
+                                                <i class="fa-solid fa-cart-shopping fs-2" style="color: #3F8087;"></i>
+                                            </div>
+                                            <div>
+                                                <p class="fw-bold fs-4 text-center">اكمال عملية الدفع</p>
+                                            </div>
+                                            <div class="mt-4 mb-5 d-flex justify-content-center">
+                                                <button class="prev-2 btn-main me-3 ms-2"
+                                                        style="width: 150px; background-color: #959595;" type="button">
+                                                    السابق
+                                                </button>
+                                                <button class="submit-pay btn-main" style="width: 150px;" type="button"
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModal">الشراء
+                                                    الان
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="total_price_input" id="total_price_input">
+                                    <input type="hidden" name="shipping_price_input" id="shipping_price_input">
+                                    <input type="hidden" name="discount_input" id="discount_input">
+                                    <input type="hidden" name="coupon_input" id="coupon_input"
+                                           value="{{ request()->coupon }}">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- </div> -->
+                <div class="col-lg-4 col-12">
+                    <div style="background-color: #F6F6F6; padding: 30px; border-radius: 10px; margin-bottom: 50px;">
+                        <h6 class="fw-bold">{{ trns('order summary') }}</h6>
+                        <div id="cartTableProduct">
+
+                        </div>
+                        <div class="row">
+                            <div class="col-6">{{ trns('price') }}</div>
+                            <div class="col-6" id="total-price-before-vat">0 {{ trns('OMR') }}</div>
+                            <div class="col-6">{{ trns('shipping') }}</div>
+                            <div class="col-6">OMR {{ $setting->home_shipping_price }}</div>
+                            <div class="col-6">{{ trns('added_tax') }}</div>
+                            <div class="col-6">{{ $setting->vat }}%</div>
+                            <div class="col-6 text-danger">{{ trns('discount') }}</div>
+                            <div class="col-6 mb-3 text-danger" id="discount-amount">
+                                <small class="text-danger">0 {{ trns('OMR') }}</small>
+                            </div>
+                            <hr>
+                            <div class="col-6 fw-bold">{{ trns('total_price') }}</div>
+                            <div class="col-6  fw-bold" id="total-price-after-vat">OMR 0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Load cart from localStorage
+        var cart = JSON.parse(localStorage.getItem('cart')) || [];
+        var vatPercentage = parseFloat("{{ $setting->vat }}"); // VAT rate as a percentage from the server (e.g., 5 for 5%)
+        var discountPercentage = parseFloat("{{ isset($coupon) ? $coupon->value : 0 }}"); // Discount percentage
+
+        console.log(cart);
+        let cartTable = $('#cartTableProduct');
+        var totalPriceBeforeTax = 0;
+
+        cart.forEach(function (item) {
+            var product = item.product;
+            var productId = item.productId;
+            var quantity = item.quantity;
+            var price = product.price * quantity; // Calculate the price for the item
+            totalPriceBeforeTax += price; // Add the price to the total price before tax
+
+            // Create a new table row for each product
+            var row = ``;
+            row = `<div class="d-flex">
+                            <div class="{{lang() == 'ar' ? 'ms-3' : 'me-3'}}" style="height: 85px; width:85px; border: 1px solid #E5E8EA; border-radius: 10px;">
+                                <img src="{{ url('/') }}/${product.images[0].image}" alt="no image" style="border-radius: 10px; width: 100%; height: 100%;">
+                            </div>
+                            <div>
+                                @if (lang() == 'ar')
+            <h6 class="fw-bold">${product.name.ar}</h6>
+                                @else
+            <h6 class="fw-bold">${product.name.en}</h6>
+                                @endif
+            <div class="d-flex">
+                <p class="text-black-50">{{ trns('color') }}: </p>
+                                <div class="color-cart" style="background-color:${item.checked_color ? item.checked_color : product.colors[0].color};"></div>                                </div>
+                                <p>${quantity} * ${product.price} OMR</p>
+                            </div>
+                        </div>`;
+            cartTable.append(row);
+        });
+
+        // Apply discount before VAT
+        var totalPriceAfterDiscount = totalPriceBeforeTax * (1 - discountPercentage / 100);
+        var shippingPrice = {{ $setting->home_shipping_price }};
+        // Apply VAT (percent)
+        var vatAmount = (totalPriceAfterDiscount * vatPercentage) / 100;
+        var totalPriceAfterTax = totalPriceAfterDiscount + vatAmount + shippingPrice;
+
+        // Update the price breakdown in the summary
+        document.getElementById('total-price-before-vat').innerText = `OMR ${totalPriceBeforeTax.toFixed(2)}`;
+        document.getElementById('discount-amount').innerText = `${discountPercentage}%`;
+        document.getElementById('total-price-after-vat').innerText = `OMR ${totalPriceAfterTax.toFixed(2)}`;
+
+        // Save data in form input field
+        document.getElementById('total_price_input').value = totalPriceAfterTax.toFixed(2);
+        document.getElementById('shipping_price_input').value = shippingPrice.toFixed(2);
+        document.getElementById('discount_input').value = discountPercentage.toFixed(2);
+
+    </script>
+
+    <script>
+        const slidePage = document.querySelector(".slidePage");
+        const firstNextBtn = document.querySelector(".next-btn");
+        const prevBtn1 = document.querySelector(".prev-1");
+        const secNextBtn = document.querySelector(".next-1");
+        const prevBtn2 = document.querySelector(".prev-2");
+        const submitBtn = document.querySelector(".submit-pay");
+
+        const progressText = document.querySelectorAll(".step p");
+        const progressCheck = document.querySelectorAll(".step .check");
+        const bullet = document.querySelectorAll(".step .bullet");
+
+        let max = 2;
+        let current = 1;
+
+        firstNextBtn.addEventListener("click", function () {
+            @if(lang() == 'ar')
+                slidePage.style.marginRight = "-25%";
+            @else
+                slidePage.style.marginLeft = "-25%";
+            @endif
+                bullet[current - 1].classList.add("active");
+            progressText[current - 1].classList.add("active");
+            progressCheck[current - 1].classList.add("active");
+            current += 1;
+        });
+        secNextBtn.addEventListener("click", function () {
+            @if(lang() == 'ar')
+                slidePage.style.marginRight = "-50%";
+            @else
+                slidePage.style.marginLeft = "-50%";
+            @endif
+                bullet[current - 1].classList.add("active");
+            progressText[current - 1].classList.add("active");
+            progressCheck[current - 1].classList.add("active");
+            current += 1;
+        });
+
+        submitBtn.addEventListener("click", function () {
+            bullet[current - 1].classList.add("active");
+            progressText[current - 1].classList.add("active");
+            progressCheck[current - 1].classList.add("active");
+            current += 1;
+        });
+
+        prevBtn1.addEventListener("click", function () {
+            @if(lang() == 'ar')
+                slidePage.style.marginRight = "0%";
+            @else
+                slidePage.style.marginLeft = "0%";
+            @endif
+                bullet[current - 2].classList.remove("active");
+            progressText[current - 2].classList.remove("active");
+            progressCheck[current - 2].classList.remove("active");
+            current -= 1;
+        });
+        prevBtn2.addEventListener("click", function () {
+            @if(lang() == 'ar')
+                slidePage.style.marginRight = "-25%";
+            @else
+                slidePage.style.marginLeft = "-25%";
+            @endif
+                bullet[current - 2].classList.remove("active");
+            progressText[current - 2].classList.remove("active");
+            progressCheck[current - 2].classList.remove("active");
+            current -= 1;
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const submitButton = document.querySelector('.submit-pay');
+
+            submitButton.addEventListener('click', function (e) {
+                e.preventDefault();  // Prevent default form submission
+
+                // Serialize form data
+                var formData = $('form').serialize();
+
+                // Add cart data to the form data
+                var cartData = JSON.parse(localStorage.getItem('cart')) || [];
+                formData += '&cartData=' + JSON.stringify(cartData);
+
+                // Make AJAX call
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route("web.checkout.submit") }}', // Your server-side processing URL
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire({
+                                title: "Order Placed Successfully",
+                                icon: "success",
+                                position: "center",
+                                timer: "3000"
+                            }).then(function () {
+                                window.location.href = response.redirect;
+                            });
+                            window.location.href = response.redirect;
+                        }
+                        localStorage.clear();
+                        console.log('Order processed successfully:', response);
+                        // Handle success (e.g., navigate to a success page, clear cart, etc.)
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error processing order:', error);
+                        Swal.fire({
+                            title: "Error processing order ",
+                            icon: "error",
+                            position: "center",
+                        });
+                    }
+                });
+            });
+        });
+
+    </script>
+@endsection
